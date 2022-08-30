@@ -5,7 +5,7 @@ Q: Selezionare tutti gli studenti nati nel 1990 (160)
 
 SELECT `name`, `surname`
 FROM `students`
-WHERE YEAR(`date_of_birth`) = 1990
+WHERE YEAR(`students`.`date_of_birth`) = 1990
 
 
 
@@ -21,7 +21,7 @@ Q: Selezionare tutti gli studenti che hanno più di 30 anni
 
 SELECT *
 FROM `students`
-WHERE 2022 - YEAR(`date_of_birth`) > 30
+WHERE 2022 - YEAR(`students`.`date_of_birth`) > 30
 
 
 
@@ -62,3 +62,40 @@ Q: Quanti sono gli insegnanti che non hanno un numero di telefono? (50)
 SELECT *
 FROM `teachers`
 WHERE `teachers`.`phone` IS NULL
+
+
+
+
+
+GROUP BY Queries
+
+
+Q: Contare quanti iscritti ci sono stati ogni anno
+
+SELECT COUNT( `students`.`id`) AS "student_number", YEAR(`students`.`enrolment_date`) AS "year"
+FROM `students`
+GROUP BY `year`
+
+
+
+Q: Contare gli insegnanti che hanno l'ufficio nello stesso edificio
+
+SELECT COUNT(`teachers`.`id`) AS "teacher_number", `teachers`.`office_address` AS "office"
+FROM `teachers`
+GROUP BY `office`
+
+
+
+Q: Calcolare la media dei voti di ogni appello d'esame
+
+SELECT AVG(`vote`) AS "average_vote", `exam_id`
+FROM `exam_student`
+GROUP BY `exam_id`
+
+
+
+Q: Contare quanti corsi di laurea ci sono per ogni dipartimento
+
+SELECT COUNT(`degrees`.`name`) AS "degrees_number",`degrees`.`department_id` AS "department"
+FROM `degrees`
+GROUP BY `department`
