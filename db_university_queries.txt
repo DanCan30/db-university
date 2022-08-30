@@ -21,7 +21,7 @@ Q: Selezionare tutti gli studenti che hanno più di 30 anni
 
 SELECT *
 FROM `students`
-WHERE 2022 - YEAR(`students`.`date_of_birth`) > 30
+WHERE TIMESTAMPDIFF(YEAR, `students`.`date_of_birth`, CURRENT_TIMESTAMP()) > 30
 
 
 
