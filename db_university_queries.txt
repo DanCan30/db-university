@@ -53,13 +53,14 @@ WHERE `degrees`.`level` = "magistrale"
 
 Q: Da quanti dipartimenti è composta l'università? (12)
 
-SELECT * FROM `departments`
+SELECT COUNT(*) AS `departments_number`
+FROM `departments`
 
 
 
 Q: Quanti sono gli insegnanti che non hanno un numero di telefono? (50)
 
-SELECT *
+SELECT COUNT(*) AS `teachers_number`
 FROM `teachers`
 WHERE `teachers`.`phone` IS NULL
 
