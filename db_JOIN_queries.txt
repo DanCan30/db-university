@@ -7,7 +7,7 @@ SELECT `students`.`surname` AS `student_surname`, `students`.`name` AS `student_
 FROM `students`
 JOIN `degrees`
 ON `degrees`.`id` = `students`.`degree_id`
-WHERE `degrees`.`name` LIKE "%Economia"
+WHERE `degrees`.`name` LIKE "%Economia";
 
 
 
@@ -17,7 +17,7 @@ SELECT `degrees`.`name` AS `degree_name`, `departments`.`name` AS `department_na
 FROM `degrees`
 JOIN `departments`
 ON `departments`.`id` = `degrees`.`department_id`
-WHERE `departments`.`name` LIKE "%Neuroscienze" AND `degrees`.`level` = "magistrale"
+WHERE `departments`.`name` LIKE "%Neuroscienze" AND `degrees`.`level` = "magistrale";
 
 
 
@@ -29,7 +29,7 @@ JOIN `course_teacher`
 ON `courses`.`id` = `course_teacher`.`course_id`
 JOIN `teachers`
 ON `teachers`.`id` = `course_teacher`.`teacher_id`
-WHERE `teachers`.`id` = 44
+WHERE `teachers`.`id` = 44;
 
 
 
@@ -41,7 +41,7 @@ JOIN `degrees`
 ON `degrees`.`id` = `students`.`degree_id`
 JOIN `departments`
 ON `departments`.`id` = `degrees`.`department_id`
-ORDER BY `student_surname` ASC
+ORDER BY `student_surname` ASC;
 
 
 
@@ -54,7 +54,7 @@ ON `degrees`.`id` = `courses`.`degree_id`
 JOIN `course_teacher`
 ON `courses`.`id` = `course_teacher`.`course_id`
 JOIN `teachers`
-ON `teachers`.`id` = `course_teacher`.`teacher_id`
+ON `teachers`.`id` = `course_teacher`.`teacher_id`;
 
 
 
@@ -70,4 +70,19 @@ JOIN `degrees`
 ON `degrees`.`id` = `courses`.`degree_id`
 JOIN `departments`
 ON `departments`.`id` = `degrees`.`department_id`
-WHERE `departments`.`id` = 5
+WHERE `departments`.`id` = 5;
+
+
+
+Q: BONUS: Selezionare per ogni studente quanti tentativi d’esame ha sostenuto per superare ciascuno dei suoi esami
+
+SELECT `students`.`registration_number` , `students`.`surname` AS `student_surname`, `students`.`name` AS `student_name`, `courses`.`name` AS `course`, COUNT(`exams`.`id`) AS `exam_attempts`
+FROM `students`
+JOIN `exam_student`
+ON `students`.`id` = `exam_student`.`student_id`
+JOIN `exams`
+ON `exams`.`id` = `exam_student`.`exam_id`
+JOIN `courses`
+ON `courses`.`id` = `exams`.`course_id`
+WHERE `exam_student`.`vote` < 18
+GROUP BY  `students`.`id`, `students`.`surname`, `students`.`name`,  `courses`.`name`;
